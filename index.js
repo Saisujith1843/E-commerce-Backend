@@ -1,0 +1,8 @@
+const express = require('express')
+const app = express()
+const mongoose = require('mongoose')
+mongoose.connect("mongodb://192.168.0.129/customers")
+const userroute = require('./src/route/customers')
+app.use(express.json())
+app.use('/',userroute)
+app.listen(3000)
