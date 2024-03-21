@@ -27,6 +27,33 @@ async function fetchOneRecord(req,res){
     })
     res.send(customer)
 }
+//summary
+async function summary(req,res){
+    const totalNumberOfCustomers = await Customer.countDocuments()
+    const totalOrderCount = await Customer.aggregate([
+        {
+            $group:{
+                _id: null,
+                totalOrders: { $sum: '$orderCount' }
+            }
+        }
+    ])
+    const totalRevenue = await Customer.aggregate([
+        {
+            $group:{
+                _id: null,
+                totalRevenue:{ $sum: '$revenue'}
+            }
+        }
+    ])
+    const avgOrderPerCustomer = totalOrderCount[0].totalOrders / totalNumberOfCustomers
+    res.json({
+        totalNumberOfCustomers,
+        totalOrderCount: totalOrderCount[0].totalOrders,
+        totalRevenue: totalRevenue[0].totalRevenue,
+        avgOrderPerCustomer
+      })
+}
 //fetchByName
 async function fetchByName(req,res){
     const name = req.params.name
@@ -72,5 +99,5 @@ async function deleteRecord(req,res){
   }
 }
 module.exports = {
-    create100Records,fetchingAllRecords,fetchOneRecord,addRecord,findAndUpdate,deleteRecord,fetchByName
+    create100Records,fetchingAllRecords,fetchOneRecord,addRecord,findAndUpdate,deleteRecord,fetchByName,summary
 }

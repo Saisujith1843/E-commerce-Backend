@@ -15,5 +15,6 @@ route.post("/customer",controller.addRecord)
 route.put("/customer/:id",controller.findAndUpdate)
 //deleting
 route.delete("/customer/:id",controller.deleteRecord)
-
+//getsummary
+route.get("/customer/summary/summary",controller.summary)
 module.exports = route
