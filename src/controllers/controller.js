@@ -99,5 +99,5 @@ async function deleteRecord(req,res){
   }
 }
 module.exports = {
-    create100Records,fetchingAllRecords,fetchOneRecord,addRecord,findAndUpdate,deleteRecord,fetchByName,summary
+    create100Records,fetchingAllRecords,fetchOneRecord,addRecord,findAndUpdate,deleteRecord,fetchByName,summary,
 }
