@@ -27,6 +27,14 @@ async function fetchOneRecord(req,res){
     })
     res.send(customer)
 }
+//fetchByName
+async function fetchByName(req,res){
+    const name = req.params.name
+    const customer = await Customer.findOne({
+        name: name
+    })
+    res.send(customer)
+}
 //summary
 async function summary(req,res){
     const totalNumberOfCustomers = await Customer.countDocuments()
@@ -53,14 +61,6 @@ async function summary(req,res){
         totalRevenue: totalRevenue[0].totalRevenue,
         avgOrderPerCustomer
       })
-}
-//fetchByName
-async function fetchByName(req,res){
-    const name = req.params.name
-    const customer = await Customer.findOne({
-        name: name
-    })
-    res.send(customer)
 }
 //adding single record
 async function addRecord(req,res){
